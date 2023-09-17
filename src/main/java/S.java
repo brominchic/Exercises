@@ -1,7 +1,6 @@
 public class S extends Thread {
     private boolean state;
     private boolean isInterrupted;
-    private W w;
 
     public S() {
         this.isInterrupted = false;
