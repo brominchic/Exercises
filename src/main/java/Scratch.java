@@ -8,8 +8,7 @@ class Scratch {
 
     }
     public static int[] sort(int[] firstArr, int[] lastArr){
-        int[] finalArr;
-        finalArr = new int[];
+        var finalArr= new int[firstArr.length];
         int n = 0;
         for (int i = 0; i < firstArr.length; i++) {
             if (firstArr[i] != lastArr[n]) {
