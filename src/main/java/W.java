@@ -1,7 +1,6 @@
 public class W extends Thread {
     private final S S;
     private int i;
-
     public W(S s) {
         this.S = s;
     }
