@@ -11,12 +11,13 @@ class Scratch {
         var finalList = new LinkedList<>();
         int n = 0;
         for (int i = 0; i < firstArr.length; i++) {
-            if (firstArr[i] != lastArr[n]) {
-                finalList.add(firstArr[i]);
-            } else {
+            if (firstArr[i] == lastArr[n]) {
                 n = n + 1;
+            } else {
+                finalList.add(firstArr[i]);
             }
         }
         return finalList;
     }
+
 }
