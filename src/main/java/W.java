@@ -1,6 +1,7 @@
 public class W extends Thread {
     private final S S;
     private int i;
+
     public W(S s) {
         this.S = s;
     }
@@ -9,18 +10,18 @@ public class W extends Thread {
     public void run() {
         this.i = 30;
         while (i >= 0) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             if (S.isState()) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
                 System.out.println(i);
                 i = i - 1;
+
             }
         }
-        S.setInterrupted(true);
-        interrupt();
+        S.interrupt();
     }
 
 }

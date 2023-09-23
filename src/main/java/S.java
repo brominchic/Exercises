@@ -1,35 +1,21 @@
 public class S extends Thread {
     private boolean state;
-    private boolean isInterrupted;
-
-    public S() {
-        this.isInterrupted = false;
-    }
 
     @Override
     public void run() {
-        while (!(isInterrupted)) {
+        while (true) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                return;
             }
-            this.state = false;
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            this.state = true;
+            this.state = !(this.state);
+            System.out.println(this.state);
         }
-        interrupt();
     }
 
     synchronized boolean isState() {
         return state;
     }
 
-    public void setInterrupted(boolean interrupted) {
-        isInterrupted = interrupted;
-    }
 }
