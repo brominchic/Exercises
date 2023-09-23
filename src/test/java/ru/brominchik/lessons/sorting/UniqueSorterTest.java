@@ -1,13 +1,8 @@
 package ru.brominchik.lessons.sorting;
-
 import org.junit.jupiter.api.Test;
-import ru.brominchik.lessons.sorting.UniqueSorter;
-
 import java.util.LinkedList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UniqueSorterTest {
 
@@ -49,7 +44,6 @@ public class UniqueSorterTest {
             first[i] = i;
             second[i - 100] = i;
         }
-
         var result = UniqueSorter.sort(first, second);
         assertEquals(100, result.size());
     }

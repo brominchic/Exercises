@@ -11,6 +11,12 @@ class UniqueSorter {
         for (int j : firstArr) {
             if (j == lastArr[n]) {
                 n = n + 1;
+                if (n == lastArr.length) {
+                    for (int i = j + 1; i < firstArr.length; i++) {
+                        finalList.add(firstArr[i]);
+                    }
+                    return finalList;
+                }
             } else {
                 finalList.add(j);
             }
