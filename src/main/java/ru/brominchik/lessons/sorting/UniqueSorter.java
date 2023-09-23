@@ -15,6 +15,7 @@ class UniqueSorter {
                 finalList.add(j);
             }
         }
+
         return finalList;
     }
 
