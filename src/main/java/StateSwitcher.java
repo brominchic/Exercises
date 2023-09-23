@@ -1,4 +1,4 @@
-public class S extends Thread {
+public class StateSwitcher extends Thread {
     private boolean state;
 
     @Override

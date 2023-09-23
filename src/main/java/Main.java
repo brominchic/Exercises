@@ -1,10 +1,10 @@
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        S s = new S();
-        W w = new W(s);
-        s.start();
-        w.start();
-        s.join();
-        w.join();
+        StateSwitcher stateSwitcher = new StateSwitcher();
+        Counter counter = new Counter(stateSwitcher);
+        stateSwitcher.start();
+        counter.start();
+        stateSwitcher.join();
+        counter.join();
     }
 }
