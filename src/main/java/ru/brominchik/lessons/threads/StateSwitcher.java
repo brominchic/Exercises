@@ -1,3 +1,5 @@
+package ru.brominchik.lessons.threads;
+
 public class StateSwitcher extends Thread {
     private boolean state;
 

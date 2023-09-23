@@ -1,3 +1,5 @@
+package ru.brominchik.lessons.threads;
+
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         StateSwitcher stateSwitcher = new StateSwitcher();
