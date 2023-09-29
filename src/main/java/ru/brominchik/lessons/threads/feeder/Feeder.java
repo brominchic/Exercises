@@ -7,17 +7,11 @@ public class Feeder {
         this.amountOfFood = amountOfFood;
     }
 
-    public synchronized boolean eatFromFeeder(int amountOfEatenFood, String name) {
-        if (this.amountOfFood >= amountOfEatenFood) {
-            this.amountOfFood = this.amountOfFood - amountOfEatenFood;
-            System.out.println("я " + name + " сьел " + amountOfEatenFood + ". " + "Осталось = " + this.amountOfFood);
-            return true;
-        }
-        if (this.amountOfFood == 0) {
-            return false;
-        }
-        System.out.println(name + " не сьел");
-        return false;
+    public int getAmountOfFood() {
+        return amountOfFood;
     }
 
+    public void setAmountOfFood(int amountOfFood) {
+        this.amountOfFood = this.amountOfFood - amountOfFood;
+    }
 }

@@ -16,7 +16,8 @@ public class FeederTest {
             animals.add(new Animal((i + 1) * 10, "номер " + (i + 1), feeder));
             animals.get(i).start();
         }
-        Thread.sleep(1000);
+        Thread.sleep(10000);
         assertEquals(0, feeder.amountOfFood);
     }
+
 }

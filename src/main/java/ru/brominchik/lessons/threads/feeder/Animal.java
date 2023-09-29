@@ -4,24 +4,42 @@ public class Animal extends Thread {
     private final Feeder feeder;
     private final int consumption;
     private final String name;
+    private boolean isAlive;
 
     public Animal(int consumption, String name, Feeder feeder) {
         this.consumption = consumption;
         this.name = name;
         this.feeder = feeder;
+        this.isAlive = true;
     }
 
     @Override
     public void run() {
-        while (feeder.eatFromFeeder(consumption, name)) {
+        while (isAlive) {
             try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                eat();
+            } catch (InterruptedException ignored) {
+
             }
         }
-        interrupt();
+
     }
 
+    public synchronized void eat() throws InterruptedException {
+        synchronized (Animal.class) {
+            if (consumption <= feeder.getAmountOfFood()) {
+                feeder.setAmountOfFood(consumption);
+                System.out.println(name + " сьел " + consumption + ". Осталось " + feeder.getAmountOfFood());
+            } else {
+                if (feeder.getAmountOfFood() != 0) {
+                    System.out.println(name + " не сьел");
+                }
+                this.isAlive = false;
+            }
+            wait(10);
+        }
+    }
 }
+
+
 
