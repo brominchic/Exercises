@@ -25,8 +25,8 @@ public class Animal extends Thread {
 
     }
 
-    public synchronized void eat() throws InterruptedException {
-        synchronized (Animal.class) {
+    public void eat() throws InterruptedException {
+        synchronized (feeder) {
             if (consumption <= feeder.getAmountOfFood()) {
                 feeder.setAmountOfFood(consumption);
                 System.out.println(name + " сьел " + consumption + ". Осталось " + feeder.getAmountOfFood());
@@ -36,8 +36,8 @@ public class Animal extends Thread {
                 }
                 this.isAlive = false;
             }
-            wait(10);
         }
+        Thread.sleep(300);
     }
 }
 
