@@ -27,16 +27,19 @@ public class Animal extends Thread {
 
     public void eat() throws InterruptedException {
         synchronized (feeder) {
-            System.out.println(name + " попытался поесть");
-            if (consumption <= feeder.getAmountOfFood()) {
-                feeder.setAmountOfFood(consumption);
-                System.out.println(name + " сьел " + consumption + ". Осталось " + feeder.getAmountOfFood());
-            } else {
-                if (feeder.getAmountOfFood() != 0) {
-                    System.out.println(name + " не сьел");
-                }
-                this.isAlive = false;
+            if (feeder.getAmountOfFood() == 0) {
                 System.out.println(name + " завершил работу");
+                this.isAlive = false;
+            } else {
+                System.out.println(name + " попытался поесть");
+                if (consumption <= feeder.getAmountOfFood()) {
+                    feeder.setAmountOfFood(consumption);
+                    System.out.println(name + " сьел " + consumption + ". Осталось " + feeder.getAmountOfFood());
+                } else {
+                    this.isAlive = false;
+                    System.out.println(name + " не сьел");
+                    System.out.println(name + " завершил работу");
+                }
             }
         }
         Thread.sleep(300);
