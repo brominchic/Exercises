@@ -16,8 +16,8 @@ public class FeederTest {
             animals.add(new Animal((i + 1) * 10, "номер " + (i + 1), feeder));
             animals.get(i).start();
         }
-        for (int i = 0; i < 5; i++) {
-            animals.get(i).join();
+        for (Animal animal : animals) {
+            animal.join();
         }
         assertEquals(0, feeder.amountOfFood);
     }
