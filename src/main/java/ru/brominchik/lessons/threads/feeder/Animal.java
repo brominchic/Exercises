@@ -4,16 +4,18 @@ public class Animal extends Thread {
     private final Feeder feeder;
     private final int consumption;
     private final String name;
-    
+    private boolean isAlive;
+
     public Animal(int consumption, String name, Feeder feeder) {
         this.consumption = consumption;
         this.name = name;
         this.feeder = feeder;
+        this.isAlive = true;
     }
 
     @Override
     public void run() {
-        while (feeder.isEnoughFood) {
+        while (feeder.isEnoughFood & isAlive) {
             try {
                 eat();
             } catch (InterruptedException ignored) {
@@ -36,6 +38,7 @@ public class Animal extends Thread {
                     System.out.println(name + " сьел " + consumption + ". Осталось " + feeder.getAmountOfFood());
                 } else {
                     System.out.println(name + " не сьел");
+                    this.isAlive = false;
                     System.out.println(name + " завершил работу");
                 }
             }
