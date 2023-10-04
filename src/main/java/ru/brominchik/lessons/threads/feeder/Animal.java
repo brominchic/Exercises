@@ -15,7 +15,7 @@ public class Animal extends Thread {
 
     @Override
     public void run() {
-        while (feeder.isEnoughFood & isAlive) {
+        while (feeder.amountOfFood > 0 & isAlive) {
             try {
                 eat();
             } catch (InterruptedException ignored) {
@@ -29,7 +29,6 @@ public class Animal extends Thread {
         synchronized (feeder) {
             if (feeder.getAmountOfFood() == 0) {
                 System.out.println(name + " завершил работу");
-                feeder.isEnoughFood = false;
                 return;
             } else {
                 System.out.println(name + " попытался поесть");
