@@ -1,4 +1,4 @@
-package ru.brominchik.lessons.threads;
+package ru.brominchik.lessons.threads.counter;
 
 public class StateSwitcher extends Thread {
     private boolean state;

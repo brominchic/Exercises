@@ -1,7 +1,7 @@
-package ru.brominchik.lessons.threads;
+package ru.brominchik.lessons.threads.counter;
 
 public class Counter extends Thread {
-    private final ru.brominchik.lessons.threads.StateSwitcher StateSwitcher;
+    private final StateSwitcher StateSwitcher;
 
     public Counter(StateSwitcher stateSwitcher) {
         this.StateSwitcher = stateSwitcher;
