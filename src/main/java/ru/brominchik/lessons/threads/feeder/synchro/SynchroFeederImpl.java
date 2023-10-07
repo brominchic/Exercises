@@ -15,7 +15,8 @@ public class SynchroFeederImpl implements Feeder {
     }
 
     @Override
-    public void eatFromFeeder(int amountOfFood) {
+    public boolean eatFromFeeder(int amountOfFood) {
         this.amountOfFood = this.amountOfFood - amountOfFood;
+        return true;
     }
 }

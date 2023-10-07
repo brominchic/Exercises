@@ -1,6 +1,8 @@
 package ru.brominchik.lessons.threads.feeder;
 
 import org.junit.jupiter.api.Test;
+import ru.brominchik.lessons.threads.feeder.atomic.AtomicAnimal;
+import ru.brominchik.lessons.threads.feeder.atomic.AtomicFeeder;
 import ru.brominchik.lessons.threads.feeder.synchro.SynchroAnimal;
 import ru.brominchik.lessons.threads.feeder.synchro.SynchroFeederImpl;
 
@@ -14,11 +16,21 @@ public class FeederTest {
     private static int TIMEOUT = 300;
 
     @Test
-    void testForSomeAmount() throws InterruptedException {
+    void testForSynchro() throws InterruptedException {
         List<SynchroAnimal> animals = new ArrayList<>();
         Feeder feeder = new SynchroFeederImpl(AMOUNT);
         for (int i = 0; i < 5; i++) {
-            animals.add(new SynchroAnimal((i + 1) * 10, "номер " + (i + 1), feeder, TIMEOUT));
+            animals.add(new SynchroAnimal(100, "номер " + (i + 1), feeder, TIMEOUT));
+        }
+        doTest(AMOUNT, animals, feeder);
+    }
+
+    @Test
+    void testForAtomic() throws InterruptedException {
+        List<AtomicAnimal> animals = new ArrayList<>();
+        Feeder feeder = new AtomicFeeder(AMOUNT);
+        for (int i = 0; i < 5; i++) {
+            animals.add(new AtomicAnimal(100, "номер " + (i + 1), feeder, TIMEOUT));
         }
         doTest(AMOUNT, animals, feeder);
     }

@@ -14,5 +14,5 @@ public interface Feeder {
      *
      * @param amountOfFood забираемое количество
      */
-    void eatFromFeeder(int amountOfFood);
+    boolean eatFromFeeder(int amountOfFood);
 }
