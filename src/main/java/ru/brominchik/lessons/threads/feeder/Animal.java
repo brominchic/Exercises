@@ -1,48 +1,29 @@
 package ru.brominchik.lessons.threads.feeder;
 
-public class Animal extends Thread {
-    private final Feeder feeder;
-    private final int consumption;
-    private final String name;
-    private boolean isAlive;
+public class Animal extends AbstractAnimal {
 
     public Animal(int consumption, String name, Feeder feeder) {
-        this.consumption = consumption;
-        this.name = name;
-        this.feeder = feeder;
-        this.isAlive = true;
+        super(feeder, consumption, name);
     }
 
     @Override
-    public void run() {
-        while (feeder.amountOfFood > 0 & isAlive) {
-            try {
-                eat();
-            } catch (InterruptedException ignored) {
-
-            }
-        }
-
-    }
-
-    public void eat() throws InterruptedException {
+    public int eat() {
         synchronized (feeder) {
             if (feeder.getAmountOfFood() == 0) {
-                System.out.println(name + " завершил работу");
-                return;
+                this.isAlive = false;
+                return 0;
             } else {
-                System.out.println(name + " попытался поесть");
                 if (consumption <= feeder.getAmountOfFood()) {
-                    feeder.setAmountOfFood(consumption);
+                    feeder.eatFromFeeder(consumption);
                     System.out.println(name + " сьел " + consumption + ". Осталось " + feeder.getAmountOfFood());
+                    return consumption;
                 } else {
                     System.out.println(name + " не сьел");
                     this.isAlive = false;
-                    System.out.println(name + " завершил работу");
+                    return 0;
                 }
             }
         }
-        Thread.sleep(300);
     }
 }
 
