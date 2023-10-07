@@ -1,17 +1,18 @@
 package ru.brominchik.lessons.threads.feeder;
 
-public class Feeder {
-    int amountOfFood;
+public interface Feeder {
 
-    Feeder(int amountOfFood) {
-        this.amountOfFood = amountOfFood;
-    }
+    /**
+     * Получает текущее доступное количество пищи
+     *
+     * @return
+     */
+    int getAmountOfFood();
 
-    public int getAmountOfFood() {
-        return amountOfFood;
-    }
-
-    public void setAmountOfFood(int amountOfFood) {
-        this.amountOfFood = this.amountOfFood - amountOfFood;
-    }
+    /**
+     * забрать количество пищи из доступного
+     *
+     * @param amountOfFood забираемое количество
+     */
+    void eatFromFeeder(int amountOfFood);
 }
