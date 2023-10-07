@@ -12,17 +12,13 @@ public class SynchroAnimal extends AbstractAnimal {
     @Override
     public int eat() {
         synchronized (feeder) {
-            if (feeder.getAmountOfFood() == 0) {
-                return 0;
+            if (consumption <= feeder.getAmountOfFood()) {
+                feeder.eatFromFeeder(consumption);
+                System.out.println(name + " сьел " + consumption + ". Осталось " + feeder.getAmountOfFood());
+                return consumption;
             } else {
-                if (consumption <= feeder.getAmountOfFood()) {
-                    feeder.eatFromFeeder(consumption);
-                    System.out.println(name + " сьел " + consumption + ". Осталось " + feeder.getAmountOfFood());
-                    return consumption;
-                } else {
-                    System.out.println(name + " не сьел");
-                    return 0;
-                }
+                System.out.println(name + " не сьел");
+                return 0;
             }
         }
     }
