@@ -1,9 +1,11 @@
-package ru.brominchik.lessons.threads.feeder;
+package ru.brominchik.lessons.threads.feeder.synchro;
 
-public class FeederImpl implements Feeder {
+import ru.brominchik.lessons.threads.feeder.Feeder;
+
+public class SynchroFeederImpl implements Feeder {
     int amountOfFood;
 
-    FeederImpl(int amountOfFood) {
+    public SynchroFeederImpl(int amountOfFood) {
         this.amountOfFood = amountOfFood;
     }
 

@@ -1,16 +1,18 @@
-package ru.brominchik.lessons.threads.feeder;
+package ru.brominchik.lessons.threads.feeder.synchro;
 
-public class Animal extends AbstractAnimal {
+import ru.brominchik.lessons.threads.feeder.AbstractAnimal;
+import ru.brominchik.lessons.threads.feeder.Feeder;
 
-    public Animal(int consumption, String name, Feeder feeder) {
-        super(feeder, consumption, name);
+public class SynchroAnimal extends AbstractAnimal {
+
+    public SynchroAnimal(int consumption, String name, Feeder feeder, int timeout) {
+        super(feeder, consumption, name, timeout);
     }
 
     @Override
     public int eat() {
         synchronized (feeder) {
             if (feeder.getAmountOfFood() == 0) {
-                this.isAlive = false;
                 return 0;
             } else {
                 if (consumption <= feeder.getAmountOfFood()) {
@@ -19,7 +21,6 @@ public class Animal extends AbstractAnimal {
                     return consumption;
                 } else {
                     System.out.println(name + " не сьел");
-                    this.isAlive = false;
                     return 0;
                 }
             }
