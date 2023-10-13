@@ -11,13 +11,9 @@ public class AtomicCounter {
         this.finalNumber = finalNumber;
     }
 
-    public int getNumber() {
-        return number.get();
-    }
-
     public int increase() {
         int expectedValue = this.number.get();
-        if (expectedValue < finalNumber) {
+        if (expectedValue <= finalNumber) {
             return this.number.incrementAndGet();
         }
         return 0;

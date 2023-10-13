@@ -7,17 +7,21 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class AtomicCounterTest {
     @Test
-    void name() throws InterruptedException {
-        ArrayList<Thread> increasers = new ArrayList<>();
+    void testForSomeAmount() throws InterruptedException {
+        ArrayList<Thread> threads = new ArrayList<>();
         ConcurrentHashMap<Integer, String> mapOfValues = new ConcurrentHashMap<>();
-        AtomicCounter counter = new AtomicCounter(30);
+        AtomicCounter counter = new AtomicCounter(100);
         for (int i = 0; i < 5; i++) {
-            increasers.add(new Thread(new Increaser(counter, "номер " + i, 30, mapOfValues)));
-            increasers.get(i).start();
+            threads.add(new Thread(new Incrementer(counter, "номер " + i, mapOfValues)));
+            threads.get(i).start();
         }
         for (int i = 0; i < 5; i++) {
-            increasers.get(i).join();
+            threads.get(i).join();
         }
-        System.out.println(mapOfValues);
+        for (int i = 1; i < mapOfValues.size(); i++) {
+            System.out.println(mapOfValues.get(i));
+        }
+
     }
+
 }
