@@ -1,33 +1,36 @@
 package ru.brominchik.lessons.threads.counter.atomic;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Incrementer implements Runnable {
-    protected final AtomicCounter counter;
+    private final AtomicInteger atomicInteger;
     protected final String name;
     private final ConcurrentHashMap<Integer, String> mapOfValues;
-    public boolean isAlive;
+    public int finalNumber;
 
-    public Incrementer(AtomicCounter counter, String name, ConcurrentHashMap<Integer, String> mapOfValues) {
-        this.counter = counter;
+    public Incrementer(AtomicInteger atomicInteger, String name, ConcurrentHashMap<Integer, String> mapOfValues, int finalNumber) {
+        this.atomicInteger = atomicInteger;
         this.name = name;
         this.mapOfValues = mapOfValues;
-        this.isAlive = true;
+        this.finalNumber = finalNumber;
     }
 
     @Override
     public void run() {
-        while (isAlive) {
-            int i = counter.increase();
-            if (i > 0) {
-                mapOfValues.put(i, "Я " + name + " выхватил значение " + i);
-            } else {
-                isAlive = !isAlive;
+        while (atomicInteger.intValue() < finalNumber) {
+            int expectedValue = atomicInteger.intValue();
+            if (expectedValue < finalNumber) {
+                increase(expectedValue);
             }
         }
-        System.out.println(name + " завершил работу");
 
     }
 
+    public void increase(int expectedValue) {
+        if (atomicInteger.compareAndSet(expectedValue, expectedValue + 1))
+            mapOfValues.put(atomicInteger.intValue(), " Я " + name + " выхватил значение " + (expectedValue + 1));
+    }
 }
+
 
