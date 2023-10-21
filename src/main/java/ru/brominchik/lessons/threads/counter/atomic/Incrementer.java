@@ -1,15 +1,15 @@
 package ru.brominchik.lessons.threads.counter.atomic;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Incrementer implements Runnable {
     private final AtomicInteger atomicInteger;
     protected final String name;
-    private final ConcurrentHashMap<Integer, String> mapOfValues;
+    private final Map<Integer, String> mapOfValues;
     public int finalNumber;
 
-    public Incrementer(AtomicInteger atomicInteger, String name, ConcurrentHashMap<Integer, String> mapOfValues, int finalNumber) {
+    public Incrementer(AtomicInteger atomicInteger, String name, Map<Integer, String> mapOfValues, int finalNumber) {
         this.atomicInteger = atomicInteger;
         this.name = name;
         this.mapOfValues = mapOfValues;

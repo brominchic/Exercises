@@ -15,7 +15,7 @@ public class AtomicCounterTest {
     @Test
     public void test() throws InterruptedException {
         var threadPool = Executors.newFixedThreadPool(5);
-        ConcurrentHashMap<Integer, String> mapOfValues = new ConcurrentHashMap<>();
+        Map<Integer, String> mapOfValues = new ConcurrentHashMap<>();
         AtomicInteger atomicInteger = new AtomicInteger(0);
         List<Runnable> listForRunnable = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -25,6 +25,24 @@ public class AtomicCounterTest {
                 threadPool::submit
         );
         sleep(100);
+        for (Map.Entry<Integer, String> pair : mapOfValues.entrySet()) {
+            String value = pair.getValue();
+            System.out.println(value);
+        }
+    }
+
+    @Test
+    void testForSomeAmount() throws InterruptedException {
+        List<Thread> threads = new ArrayList<>();
+        AtomicInteger atomicInteger = new AtomicInteger(0);
+        Map<Integer, String> mapOfValues = new ConcurrentHashMap<>();
+        for (int i = 0; i < 5; i++) {
+            threads.add(new Thread(new Incrementer(atomicInteger, " номер " + i, mapOfValues, 30)));
+            threads.get(i).start();
+        }
+        for (int i = 0; i < 5; i++) {
+            threads.get(i).join();
+        }
         for (Map.Entry<Integer, String> pair : mapOfValues.entrySet()) {
             String value = pair.getValue();
             System.out.println(value);
