@@ -7,7 +7,7 @@ public class Incrementer implements Runnable {
     private final AtomicInteger atomicInteger;
     protected final String name;
     private final Map<Integer, String> mapOfValues;
-    public int finalNumber;
+    private final int finalNumber;
 
     public Incrementer(AtomicInteger atomicInteger, String name, Map<Integer, String> mapOfValues, int finalNumber) {
         this.atomicInteger = atomicInteger;
@@ -27,9 +27,12 @@ public class Incrementer implements Runnable {
 
     }
 
-    public void increase(int expectedValue) {
-        if (atomicInteger.compareAndSet(expectedValue, expectedValue + 1))
+    private boolean increase(int expectedValue) {
+        if (atomicInteger.compareAndSet(expectedValue, expectedValue + 1)) {
             mapOfValues.put(atomicInteger.intValue(), " Я " + name + " выхватил значение " + (expectedValue + 1));
+            return true;
+        }
+        return false;
     }
 }
 
