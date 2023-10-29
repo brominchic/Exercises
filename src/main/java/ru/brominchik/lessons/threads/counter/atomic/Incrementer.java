@@ -7,12 +7,11 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Incrementer implements Runnable {
+    private static final Logger logger = LoggerFactory.getLogger(Incrementer.class);
     private final AtomicInteger atomicInteger;
     protected final String name;
     private final Map<Integer, String> mapOfValues;
     private final int finalNumber;
-    private static final Logger logger = LoggerFactory.getLogger(Incrementer.class);
-
 
     public Incrementer(AtomicInteger atomicInteger, String name, Map<Integer, String> mapOfValues, int finalNumber) {
         this.atomicInteger = atomicInteger;

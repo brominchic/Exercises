@@ -1,6 +1,8 @@
 package ru.brominchik.lessons.threads.counter.atomic;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static java.lang.Thread.sleep;
 
 public class AtomicCounterTest {
+    private static final Logger logger = LoggerFactory.getLogger(AtomicCounterTest.class);
+
     @Test
     public void test() throws InterruptedException {
         var threadPool = Executors.newFixedThreadPool(5);
@@ -21,13 +25,11 @@ public class AtomicCounterTest {
         for (int i = 0; i < 5; i++) {
             listForRunnable.add(new Incrementer(atomicInteger, " номер " + i, mapOfValues, 30));
         }
-        listForRunnable.forEach(
-                threadPool::submit
-        );
+        listForRunnable.forEach(threadPool::submit);
         sleep(100);
         for (Map.Entry<Integer, String> pair : mapOfValues.entrySet()) {
             String value = pair.getValue();
-            System.out.println(value);
+            logger.info(value);
         }
     }
 
@@ -45,7 +47,7 @@ public class AtomicCounterTest {
         }
         for (Map.Entry<Integer, String> pair : mapOfValues.entrySet()) {
             String value = pair.getValue();
-            System.out.println(value);
+            logger.info(value);
         }
     }
 }

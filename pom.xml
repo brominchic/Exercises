@@ -38,12 +38,4 @@
         </dependency>
 
     </dependencies>
-    <repositories>
-        <repository>
-            <id>central</id>
-            <name>Maven Central</name>
-            <layout>default</layout>
-            <url>https://repo1.maven.org/maven3</url>
-        </repository>
-    </repositories>
 </project>
