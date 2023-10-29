@@ -33,12 +33,13 @@ public class Incrementer implements Runnable {
 
     }
 
-    private void increase(int expectedValue) {
+    private boolean increase(int expectedValue) {
         if (atomicInteger.compareAndSet(expectedValue, expectedValue + 1)) {
             mapOfValues.put(atomicInteger.intValue(), " Я " + name + " выхватил значение " + (expectedValue + 1));
             logger.info(" Я " + name + " выхватил значение " + (expectedValue + 1));
+            return true;
         }
-
+        return false;
     }
 }
 
