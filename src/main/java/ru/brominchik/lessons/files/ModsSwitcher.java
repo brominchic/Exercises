@@ -58,9 +58,19 @@ public class ModsSwitcher {
                 String[] string = new String[0];
                 main(string);
             } else {
-                if (values.get(num).isDirectory()) {
-                    if ((values.get(num).listFiles()[0].getName().equals("Installers")) & (values.get(num).listFiles()[1].getName().equals("menyooStuff")))
-                        EnableDisable(values.get(num));
+                if ((values.get(num).isDirectory())) {
+                    if ((values.get(num).listFiles().length > 2)) {
+                        if ((values.get(num).listFiles()[0].getName().equals("asiloader.log")) & (values.get(num).listFiles()[1].getName().equals("bink2w64.dll"))) {
+                            EnableDisable(values.get(num));
+                        } else {
+                            pathTo(values.get(num));
+                        }
+                    } else {
+                        pathTo(values.get(num));
+                    }
+                } else {
+                    System.out.println("Это не папка");
+                    pathTo(folder);
                 }
             }
         } catch (NullPointerException e) {
