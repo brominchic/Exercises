@@ -76,6 +76,7 @@ public class ModsSwitcher {
         } catch (NullPointerException e) {
             System.out.println("Такой папки нет");
             pathTo(folder);
+
         }
     }
 
