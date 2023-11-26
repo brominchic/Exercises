@@ -15,7 +15,7 @@ public class ModsSwitcher {
         System.out.println("Выберите диск");
         String disk = in.nextLine();
         File folder = new File(disk + ":");
-        pathTo(folder);
+        returnPathTo(folder);
 
     }
 
@@ -29,7 +29,7 @@ public class ModsSwitcher {
         }
     }
 
-    public static void pathTo(File folder) throws IOException {
+    public static void returnPathTo(File folder) throws IOException {
         Map<Integer, File> values = new HashMap<>();
         Scanner in = new Scanner(System.in);
         int i = 0;
@@ -61,26 +61,26 @@ public class ModsSwitcher {
                 if ((values.get(num).isDirectory())) {
                     if ((values.get(num).listFiles().length > 2)) {
                         if ((values.get(num).listFiles()[0].getName().equals("asiloader.log")) & (values.get(num).listFiles()[1].getName().equals("bink2w64.dll"))) {
-                            EnableDisable(values.get(num));
+                            enableDisable(values.get(num));
                         } else {
-                            pathTo(values.get(num));
+                            returnPathTo(values.get(num));
                         }
                     } else {
-                        pathTo(values.get(num));
+                        returnPathTo(values.get(num));
                     }
                 } else {
                     System.out.println("Это не папка");
-                    pathTo(folder);
+                    returnPathTo(folder);
                 }
             }
         } catch (NullPointerException e) {
             System.out.println("Такой папки нет");
-            pathTo(folder);
+            returnPathTo(folder);
 
         }
     }
 
-    public static void EnableDisable(File folder) {
+    public static void enableDisable(File folder) {
         System.out.println("Включить/Отключить");
         String nextLine = in.nextLine();
 
@@ -117,7 +117,7 @@ public class ModsSwitcher {
             }
         } else {
             System.out.println("Команда не распознана");
-            EnableDisable(folder);
+            enableDisable(folder);
         }
     }
 }

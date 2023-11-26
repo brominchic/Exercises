@@ -8,39 +8,39 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.lang.Math.sqrt;
+
 public class GraphReader {
 
     public static void main(String[] arg) throws IOException {
         File file = new File("C:\\test.txt");
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-
-        String array = "0 1 1 0 " + "0 0 0 1 " + "0 0 0 1 " + "0 0 0 0 ";
-
-        fileOutputStream.write(array.getBytes());
-        FileInputStream fileInputStream = new FileInputStream("C:\\test.txt");
-        int i;
-        StringBuilder string = new StringBuilder();
-        while ((i = fileInputStream.read()) != -1) {
-
-            string.append(((char) i));
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+            String baseString = "0 1 0 0 " + "0 0 0 0 " + "0 0 0 0 " + "0 0 0 0 "; // создаем матрицу смежности
+            fileOutputStream.write(baseString.getBytes()); // записываем матрицу в файл
         }
-        List<String> strings = Arrays.stream(string.toString().split(" ")).toList();
+        StringBuilder string;
+        try (FileInputStream fileInputStream = new FileInputStream("C:\\test.txt")) {
+            int i;
+            string = new StringBuilder();
+            while ((i = fileInputStream.read()) != -1) {
+                string.append(((char) i));
+            } // читаем файл
+        }
+        List<String> listOfCharsFromFile = Arrays.stream(string.toString().split(" ")).toList(); // превращаем числа и пробелы в массив знаков без пробелов
         List<Integer> integers = new ArrayList<>();
-        for (String s : strings) {
+        for (String s : listOfCharsFromFile) {
             integers.add(Integer.valueOf(s));
-        }
-        int length = (int) Math.sqrt(integers.size());
-        int[][] twoArray = new int[length][length];
-        for (int j = 0; j < length; j++) {
-            for (int k = 0; k < length; k++) {
-                twoArray[j][k] = integers.get(j + k);
+        }// записываем массив знаков в массив цифр
+        System.out.println(integers);
+        int size = (int) sqrt(integers.size());
+        int[][] doubleArray = new int[size][size];
+        for (int j = 0; j < size; j++) { // превращаем в матрицу смежности
+            for (int k = 0; k < size; k++) {
+                doubleArray[j][k] = integers.get(j * size + k);
+                System.out.print(doubleArray[j][k] + " ");
             }
+            System.out.println();
         }
-        for (int j = 0; j < length; j++) {
-            for (int k = 0; k < length; k++) {
-                System.out.print(twoArray[j][k] + " ");
-            }
-            System.out.println("");
-        }
+
     }
 }
