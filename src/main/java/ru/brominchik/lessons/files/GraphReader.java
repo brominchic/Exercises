@@ -12,7 +12,7 @@ import static java.lang.Math.sqrt;
 
 public class GraphReader {
 
-    public static void main(String[] arg) throws IOException {
+    public void readMatrix(String[] arg) throws IOException {
         File file = new File("C:\\test.txt");
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
             String baseString = "0 1 0 0 " + "0 0 0 0 " + "0 0 0 0 " + "0 0 0 0 "; // создаем матрицу смежности

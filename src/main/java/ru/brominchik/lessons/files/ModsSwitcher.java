@@ -8,10 +8,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class ModsSwitcher {
-    static Scanner in = new Scanner(System.in);
+    Scanner in = new Scanner(System.in);
 
-    public static void main(String[] args) throws IOException {
-        discs();
+    public void switchMods() throws IOException {
+        returnListOfDiscs();
         System.out.println("Выберите диск");
         String disk = in.nextLine();
         File folder = new File(disk + ":");
@@ -19,7 +19,7 @@ public class ModsSwitcher {
 
     }
 
-    public static void discs() {
+    private void returnListOfDiscs() {
         File[] paths;
         FileSystemView fsv = FileSystemView.getFileSystemView();
         paths = File.listRoots();
@@ -29,7 +29,7 @@ public class ModsSwitcher {
         }
     }
 
-    public static void returnPathTo(File folder) throws IOException {
+    private void returnPathTo(File folder) throws IOException {
         Map<Integer, File> values = new HashMap<>();
         Scanner in = new Scanner(System.in);
         int i = 0;
@@ -40,13 +40,11 @@ public class ModsSwitcher {
             }
         } catch (NullPointerException e) {
             System.out.println("Такого диска не существует");
-            String[] string = new String[0];
-            main(string);
+            switchMods();
         }
 
         for (Map.Entry<Integer, File> entry : values.entrySet()) {
             Integer key = entry.getKey();
-
             String value = entry.getValue().getName();
             System.out.println(key + " - " + value);
         }
@@ -55,8 +53,7 @@ public class ModsSwitcher {
         int num = in.nextInt();
         try {
             if (num == values.size()) {
-                String[] string = new String[0];
-                main(string);
+                switchMods();
             } else {
                 if ((values.get(num).isDirectory())) {
                     if ((values.get(num).listFiles().length > 2)) {
@@ -80,7 +77,7 @@ public class ModsSwitcher {
         }
     }
 
-    public static void enableDisable(File folder) {
+    private void enableDisable(File folder) {
         System.out.println("Включить/Отключить");
         String nextLine = in.nextLine();
 
