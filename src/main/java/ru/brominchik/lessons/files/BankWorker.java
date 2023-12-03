@@ -2,14 +2,7 @@ package ru.brominchik.lessons.files;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.swing.filechooser.FileSystemView;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -19,7 +12,7 @@ public class BankWorker {
 
     public File createFile(long numOfOperations, String path) throws IOException {
         File file = new File(path);
-        FileOutputStream fileOutputStream = new FileOutputStream(path);
+        OutputStream fileOutputStream = new BufferedOutputStream(new FileOutputStream(path));
         for (long i = 0; i < numOfOperations; i++) {
             int x = random.nextInt(200000) - 100000;
             String baseString = x + "\n ";
@@ -36,9 +29,9 @@ public class BankWorker {
             baseAccount -= sum;
             finalAccount += sum;
             if (sum < 0) {
-                logger.info("Переведено со счета 2 " + sum * -1 + " На счет 1");
+                logger.info("Переведено со счета 2 {} На счет 1",sum * -1);
             } else {
-                logger.info("Переведено со счета 1 " + sum + " На счет 2");
+                logger.info("Переведено со счета 1 {}  счет 2",sum);
             }
         }
         System.out.println(baseAccount);
