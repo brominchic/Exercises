@@ -21,7 +21,7 @@ public class BankWorkerTimurImpl implements BankWorker {
         for (long i = 0; i < numOfOperations; i++) {
 
             int x = random.nextInt(200000) - 100000;
-            logger.info("{} set to {}", i, x);
+//            logger.info("{} set to {}", i, x);
             String baseString = x + " ";
             fileOutputStream.write(baseString.getBytes());
         }
