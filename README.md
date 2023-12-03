@@ -50,7 +50,7 @@
         <Выхваченное значение счетчика, "Я [имя потока] выхватил значение [значение]"
 
 
-4. [files-bankWorker](.src/main/java/ru/brominchik/lessons/files/BankWorker.java)
+4. [files-bankWorker](./src/main/java/ru/brominchik/lessons/files/BankWorker.java)
    >
         делаем класс - работник с файлом. у класса два метода:
         1. создать txt файл в определенной папке с определенным именем.
