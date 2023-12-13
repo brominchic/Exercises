@@ -8,7 +8,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class BankManager {
@@ -34,7 +33,6 @@ public class BankManager {
         long sum = 0;
         ExecutorService service = Executors.newFixedThreadPool(numOfThreads);
         List<Future<Long>> futures = new ArrayList<>();
-        Condition condition = locker.newCondition();
         for(int i = 0; i < numOfThreads; i++)
         {
             String path = "C:\\Users\\text.txt";

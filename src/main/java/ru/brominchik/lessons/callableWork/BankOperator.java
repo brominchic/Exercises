@@ -1,14 +1,11 @@
 package ru.brominchik.lessons.callableWork;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.brominchik.lessons.files.BankWorker;
 
 import java.io.File;
 import java.util.concurrent.Callable;
 
 public  class BankOperator implements Callable<Long> {
-    private static final Logger logger = LoggerFactory.getLogger(BankOperator.class);
     private File file;
     private int numOfOperations;
 
