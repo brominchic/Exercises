@@ -2,6 +2,7 @@ package ru.brominchik.lessons.files;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+ 
 import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
@@ -22,27 +23,20 @@ public class BankWorker {
         return file;
     }
 
-    public void doOperations(File file, long baseAccount, long finalAccount) throws FileNotFoundException {
+    public long doOperations(File file, long baseAccount, long finalAccount) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
             int sum = ((scanner.nextInt()));
             baseAccount -= sum;
             finalAccount += sum;
             if (sum < 0) {
-                logger.info("Переведено со счета 2 {} На счет 1",sum * -1);
+                logger.info("Переведено со счета 2 {} На счет 1", sum * -1);
             } else {
-                logger.info("Переведено со счета 1 {}  счет 2",sum);
+                logger.info("Переведено со счета 1 {}  счет 2", sum);
             }
         }
-        System.out.println(baseAccount);
-        System.out.println(finalAccount);
         scanner.close();
-        boolean result = file.delete();
-        if (result) {
-            logger.info("File is successfully deleted.");
-        } else {
-            logger.info("File deletion failed.");
-        }
+        return baseAccount;
     }
 
 }
