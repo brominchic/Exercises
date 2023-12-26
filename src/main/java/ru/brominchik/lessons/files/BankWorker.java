@@ -39,4 +39,22 @@ public class BankWorker {
         return baseAccount;
     }
 
+    public long doOperationsLimited(File file, long baseAccount, long finalAccount, int numOfOperations) throws FileNotFoundException {
+        Scanner scanner = new Scanner(file);
+        int i = 0;
+        while (scanner.hasNext() & (i < numOfOperations)) {
+            int sum = ((scanner.nextInt()));
+            baseAccount -= sum;
+            finalAccount += sum;
+            if (sum < 0) {
+                logger.info("Переведено со счета 2 {} На счет 1", sum * -1);
+            } else {
+                logger.info("Переведено со счета 1 {}  счет 2", sum);
+            }
+            i++;
+        }
+        scanner.close();
+        return baseAccount;
+    }
+
 }

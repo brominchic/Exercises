@@ -17,7 +17,7 @@ public class BankWorkerTest {
     @Test
     @Timeout(120)
     public void testCreateFile() throws IOException {
-        File file = bankWorker.createFile(1000_000000, "C:\\test.txt");
+        File file = bankWorker.createFile(1_000_000_000, "C:\\test.txt");
         Scanner scanner = new Scanner(file);
         long numOfStrings = 0;
         while (scanner.hasNext()) {
@@ -40,10 +40,10 @@ public class BankWorkerTest {
     @BeforeEach
     @AfterEach
     public void logAmts() {
-        System.out.println(String.format("Initial memory: %.2f GB",            (double) memoryMXBean.getHeapMemoryUsage().getInit() / 1073741824));
-        System.out.println(String.format("Used heap memory: %.2f GB",            (double) memoryMXBean.getHeapMemoryUsage().getUsed() / 1073741824));
-        System.out.println(String.format("Max heap memory: %.2f GB",            (double) memoryMXBean.getHeapMemoryUsage().getMax() / 1073741824));
-        System.out.println(String.format("Committed memory: %.2f GB",            (double) memoryMXBean.getHeapMemoryUsage().getCommitted() / 1073741824));
+        System.out.printf("Initial memory: %.2f GB%n", (double) memoryMXBean.getHeapMemoryUsage().getInit() / 1073741824);
+        System.out.printf("Used heap memory: %.2f GB%n", (double) memoryMXBean.getHeapMemoryUsage().getUsed() / 1073741824);
+        System.out.printf("Max heap memory: %.2f GB%n", (double) memoryMXBean.getHeapMemoryUsage().getMax() / 1073741824);
+        System.out.printf("Committed memory: %.2f GB%n", (double) memoryMXBean.getHeapMemoryUsage().getCommitted() / 1073741824);
     }
 
 }
