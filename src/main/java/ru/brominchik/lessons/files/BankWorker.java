@@ -2,7 +2,7 @@ package ru.brominchik.lessons.files;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
- 
+
 import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
@@ -39,9 +39,14 @@ public class BankWorker {
         return baseAccount;
     }
 
-    public long doOperationsLimited(File file, long baseAccount, long finalAccount, int numOfOperations) throws FileNotFoundException {
+    public long doOperationsLimited(File file, long baseAccount, long finalAccount, int numOfOperations, int name) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         int i = 0;
+        while (scanner.hasNext() & (i < numOfOperations * name)) {
+            scanner.nextInt();
+            i++;
+        }
+        i = 0;
         while (scanner.hasNext() & (i < numOfOperations)) {
             int sum = ((scanner.nextInt()));
             baseAccount -= sum;

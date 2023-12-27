@@ -1,4 +1,4 @@
-package ru.brominchik.lessons.callable_work;
+package ru.brominchik.lessons.callable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,36 +9,36 @@ import java.io.IOException;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class BankOperatorReentrantLocked extends BankOperator {
+    private static final Logger logger = LoggerFactory.getLogger(BankOperator.class);
+
     private final File file;
     private final int numOfOperations;
     private final ReentrantLock locker;
-    private final int name;
-    private static final Logger logger = LoggerFactory.getLogger(BankOperator.class);
-    private final int numOfThreads;
+    private final int positionInPool;
+    private final int numOfThreadsInPool;
 
     public BankOperatorReentrantLocked(File file, int numOfOperations, ReentrantLock locker, int name, int numOfThreads) {
-        super(file, numOfOperations);
+        super(file, numOfOperations, name);
         this.file = file;
         this.numOfOperations = numOfOperations;
         this.locker = locker;
-        this.name = name;
-        this.numOfThreads=numOfThreads;
+        this.positionInPool = name;
+        this.numOfThreadsInPool = numOfThreads;
     }
 
     @Override
-    public Long call() throws InterruptedException, IOException {
+    public Long call() throws IOException {
         try {
-            Thread.sleep((numOfThreads - name) * 1000L);
+            Thread.sleep((numOfThreadsInPool - positionInPool) * 1000L);
         } catch (InterruptedException ex) {
             throw new RuntimeException(ex);
         }
         locker.lock();
         long baseAccount = 0;
         BankWorker bankWorker = new BankWorker();
-        File file = bankWorker.createFile(numOfOperations, this.file.getPath());
         long finalAccount = 0;
-        logger.info(name + " начал работу");
-        baseAccount = bankWorker.doOperationsLimited(file, baseAccount, finalAccount, numOfOperations);
+        logger.info(positionInPool + " начал работу");
+        baseAccount = bankWorker.doOperationsLimited(file, baseAccount, finalAccount, numOfOperations, positionInPool);
         locker.unlock();
         return baseAccount;
 

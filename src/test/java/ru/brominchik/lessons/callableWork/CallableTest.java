@@ -3,9 +3,9 @@ package ru.brominchik.lessons.callableWork;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.brominchik.lessons.callable_work.BankOperator;
-import ru.brominchik.lessons.callable_work.BankOperatorReentrantLocked;
-import ru.brominchik.lessons.callable_work.ConditionalCollection;
+import ru.brominchik.lessons.callable.BankOperator;
+import ru.brominchik.lessons.callable.BankOperatorReentrantLocked;
+import ru.brominchik.lessons.callable.ConditionalCollection;
 import ru.brominchik.lessons.files.BankWorker;
 
 import java.io.File;
@@ -26,13 +26,15 @@ public class CallableTest {
     @Test
     void testNormal() throws IOException, ExecutionException, InterruptedException {
         long sum = 0;
-        ExecutorService service = Executors.newFixedThreadPool(5);
-        List<Future<Long>> futures = new ArrayList<>();
-        BankWorker bankWorker = new BankWorker();
-        File file = bankWorker.createFile(100, "C:\\test.txt");
-        for (int i = 0; i < 5; i++) {
-            Future<Long> future = service.submit(new BankOperator(file, 20));
-            futures.add(future);
+        List<Future<Long>> futures;
+        try (ExecutorService service = Executors.newFixedThreadPool(5)) {
+            futures = new ArrayList<>();
+            BankWorker bankWorker = new BankWorker();
+            File file = bankWorker.createFile(100, "C:\\test.txt");
+            for (int i = 0; i < 5; i++) {
+                Future<Long> future = service.submit(new BankOperator(file, 20, i));
+                futures.add(future);
+            }
         }
         for (Future<Long> fut : futures) {
             sum += fut.get();
@@ -43,15 +45,16 @@ public class CallableTest {
     void testLocked() throws IOException, ExecutionException, InterruptedException {
         long sum = 0;
         ReentrantLock locker = new ReentrantLock();
-        ExecutorService service = Executors.newFixedThreadPool(5);
-        BankWorker bankWorker = new BankWorker();
-        File file = bankWorker.createFile(100, "C:\\test.txt");
-        List<Future<Long>> futures = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            Future<Long> future = service.submit(new BankOperatorReentrantLocked(file, 20, locker, i, 5));
-            futures.add(future);
+        List<Future<Long>> futures;
+        try (ExecutorService service = Executors.newFixedThreadPool(5)) {
+            BankWorker bankWorker = new BankWorker();
+            File file = bankWorker.createFile(100, "C:\\test.txt");
+            futures = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                Future<Long> future = service.submit(new BankOperatorReentrantLocked(file, 20, locker, i, 5));
+                futures.add(future);
+            }
         }
-
         for (Future<Long> fut : futures) {
             sum += fut.get();
         }
@@ -61,7 +64,7 @@ public class CallableTest {
 
     @Test
     void testAddCollection() {
-        ConditionalCollection<String> conditionalCollection = new ConditionalCollection();
+        ConditionalCollection<String> conditionalCollection = new ConditionalCollection<>();
         conditionalCollection.add("abaerere3y6746776477878yyuyyyyy");
         assertTrue(conditionalCollection.isEmpty());
         conditionalCollection.add("abaerere3y6746776477878");
