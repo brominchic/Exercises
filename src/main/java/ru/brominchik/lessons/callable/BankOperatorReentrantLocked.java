@@ -11,18 +11,19 @@ import java.util.concurrent.locks.ReentrantLock;
 public class BankOperatorReentrantLocked extends BankOperator {
     private static final Logger logger = LoggerFactory.getLogger(BankOperator.class);
 
+
     private final File file;
     private final int numOfOperations;
     private final ReentrantLock locker;
     private final int positionInPool;
     private final int numOfThreadsInPool;
 
-    public BankOperatorReentrantLocked(File file, int numOfOperations, ReentrantLock locker, int name, int numOfThreads) {
-        super(file, numOfOperations, name);
+    public BankOperatorReentrantLocked(File file, int numOfOperations, ReentrantLock locker, int positionInPool, int numOfThreads) {
+        super(file, numOfOperations, positionInPool);
         this.file = file;
         this.numOfOperations = numOfOperations;
         this.locker = locker;
-        this.positionInPool = name;
+        this.positionInPool = positionInPool;
         this.numOfThreadsInPool = numOfThreads;
     }
 

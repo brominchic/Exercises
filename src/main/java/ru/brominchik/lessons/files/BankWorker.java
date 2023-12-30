@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 public class BankWorker {
     private static final Logger logger = LoggerFactory.getLogger(BankWorker.class);
+
+
     private final Random random = new Random();
 
     public File createFile(long numOfOperations, String path) throws IOException {
@@ -39,10 +41,10 @@ public class BankWorker {
         return baseAccount;
     }
 
-    public long doOperationsLimited(File file, long baseAccount, long finalAccount, int numOfOperations, int name) throws FileNotFoundException {
+    public long doOperationsLimited(File file, long baseAccount, long finalAccount, int numOfOperations, int positionInPool) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         int i = 0;
-        while (scanner.hasNext() & (i < numOfOperations * name)) {
+        while (scanner.hasNext() & (i < numOfOperations * positionInPool)) {
             scanner.nextInt();
             i++;
         }

@@ -10,10 +10,10 @@ public  class BankOperator implements Callable<Long> {
     private final int numOfOperations;
     private final int positionInPool;
 
-    public BankOperator(File file, int numOfOperations, int name) {
+    public BankOperator(File file, int numOfOperations, int positionInPool) {
         this.file = file;
         this.numOfOperations = numOfOperations;
-        this.positionInPool = name;
+        this.positionInPool = positionInPool;
     }
 
     @Override

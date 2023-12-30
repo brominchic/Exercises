@@ -1,11 +1,9 @@
-package ru.brominchik.lessons.callableWork;
+package ru.brominchik.lessons.callable;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.brominchik.lessons.callable.BankOperator;
-import ru.brominchik.lessons.callable.BankOperatorReentrantLocked;
-import ru.brominchik.lessons.callable.ConditionalCollection;
+import ru.brominchik.lessons.collections.ConditionalCollection;
 import ru.brominchik.lessons.files.BankWorker;
 
 import java.io.File;
@@ -23,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CallableTest {
     private static final Logger logger = LoggerFactory.getLogger(CallableTest.class);
+
+
     @Test
     void testNormal() throws IOException, ExecutionException, InterruptedException {
         long sum = 0;
@@ -62,12 +62,4 @@ public class CallableTest {
         logger.info("Всего: " + sum);
     }
 
-    @Test
-    void testAddCollection() {
-        ConditionalCollection<String> conditionalCollection = new ConditionalCollection<>();
-        conditionalCollection.add("abaerere3y6746776477878yyuyyyyy");
-        assertTrue(conditionalCollection.isEmpty());
-        conditionalCollection.add("abaerere3y6746776477878");
-        assertEquals(1, conditionalCollection.size());
-    }
 }

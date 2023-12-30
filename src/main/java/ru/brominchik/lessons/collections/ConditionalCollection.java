@@ -1,4 +1,4 @@
-package ru.brominchik.lessons.callable;
+package ru.brominchik.lessons.collections;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
