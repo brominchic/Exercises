@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -41,16 +42,10 @@ public class BankWorker {
         return baseAccount;
     }
 
-    public long doOperationsLimited(File file, long baseAccount, long finalAccount, int numOfOperations, int positionInPool) throws FileNotFoundException {
-        Scanner scanner = new Scanner(file);
-        int i = 0;
-        while (scanner.hasNext() & (i < numOfOperations * positionInPool)) {
-            scanner.nextInt();
-            i++;
-        }
-        i = 0;
-        while (scanner.hasNext() & (i < numOfOperations)) {
-            int sum = ((scanner.nextInt()));
+    public long doOperationsLimited(List<Integer> list, long baseAccount, long finalAccount) {
+
+        for (int i = 0; i < list.size(); i++) {
+            int sum = (list.get(i));
             baseAccount -= sum;
             finalAccount += sum;
             if (sum < 0) {
@@ -60,7 +55,7 @@ public class BankWorker {
             }
             i++;
         }
-        scanner.close();
+
         return baseAccount;
     }
 

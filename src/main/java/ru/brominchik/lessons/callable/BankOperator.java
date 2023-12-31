@@ -2,24 +2,20 @@ package ru.brominchik.lessons.callable;
 
 import ru.brominchik.lessons.files.BankWorker;
 
-import java.io.File;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 public  class BankOperator implements Callable<Long> {
-    private final File file;
-    private final int numOfOperations;
-    private final int positionInPool;
+    private final List<Integer> list;
 
-    public BankOperator(File file, int numOfOperations, int positionInPool) {
-        this.file = file;
-        this.numOfOperations = numOfOperations;
-        this.positionInPool = positionInPool;
+    public BankOperator(List<Integer> list) {
+        this.list = list;
     }
 
     @Override
-    public Long call() throws Exception {
+    public Long call() {
         BankWorker bankWorker = new BankWorker();
-        return bankWorker.doOperationsLimited(file, 0, 0, numOfOperations, positionInPool);
+        return bankWorker.doOperationsLimited(list, 0, 0);
     }
 }
 
