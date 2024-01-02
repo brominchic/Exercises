@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class BankWorker {
     private static final Logger logger = LoggerFactory.getLogger(BankWorker.class);
 
-
     private final Random random = new Random();
 
     public File createFile(long numOfOperations, String path) throws IOException {
@@ -26,7 +25,7 @@ public class BankWorker {
         return file;
     }
 
-    public long doOperations(File file, long baseAccount, long finalAccount) throws FileNotFoundException {
+    public long doOperationsFromFile(File file, long baseAccount, long finalAccount) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
             int sum = ((scanner.nextInt()));
@@ -42,20 +41,18 @@ public class BankWorker {
         return baseAccount;
     }
 
-    public long doOperationsLimited(List<Integer> list, long baseAccount, long finalAccount) {
-
+    public long doOperationsFromList(List<Integer> list) {
+        long baseAccount = 0;
         for (int i = 0; i < list.size(); i++) {
             int sum = (list.get(i));
-            baseAccount -= sum;
-            finalAccount += sum;
+            baseAccount += sum;
             if (sum < 0) {
                 logger.info("Переведено со счета 2 {} На счет 1", sum * -1);
-            } else {
+            } else if (sum > 0) {
                 logger.info("Переведено со счета 1 {}  счет 2", sum);
             }
-            i++;
+            i++;//идем по полученному массиву и меняем значение счета
         }
-
         return baseAccount;
     }
 

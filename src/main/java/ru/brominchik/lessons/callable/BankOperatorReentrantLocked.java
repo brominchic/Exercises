@@ -13,16 +13,15 @@ public class BankOperatorReentrantLocked extends BankOperator {
         super(list);
         this.list = list;
         this.locker = locker;
-
     }
 
     @Override
     public Long call() {
-        locker.lock();
+        locker.lock();//блокируем работу других потоков
         BankWorker bankWorker = new BankWorker();
-        long baseAccount = bankWorker.doOperationsLimited(list, 0, 0);
-        locker.unlock();
-        return baseAccount;
+        long finalBalance = bankWorker.doOperationsFromList(list);// создаем банк воркера,передаем ему его часть массива
+        locker.unlock();//разблокируем работу других потоков
+        return finalBalance;
 
     }
 

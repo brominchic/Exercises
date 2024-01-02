@@ -12,10 +12,11 @@ public  class BankOperator implements Callable<Long> {
         this.list = list;
     }
 
+
     @Override
     public Long call() {
         BankWorker bankWorker = new BankWorker();
-        return bankWorker.doOperationsLimited(list, 0, 0);
+        return bankWorker.doOperationsFromList(list); // создаем банк воркера,передаем ему его часть массива
     }
 }
 
