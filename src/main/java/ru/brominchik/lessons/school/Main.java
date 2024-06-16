@@ -1,45 +1,35 @@
 package ru.brominchik.lessons.school;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
-        int n = scanner.nextInt();
-        int[][] graph = new int[n][n];
-        int sum = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                graph[i][j] = scanner.nextInt();
-                if (graph[i][j] == 1) {
-                    sum++;
-                }
-            }
-        }
-        int num = 0;
-        ArrayList<Integer> finalList = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            num = 0;
-            for (int j = 0; j < n; j++) {
-                if ((graph[i][j] == 1) & (j != i)) {
-                    num++;
-                }
-                if ((graph[j][i] == 1) & (j != i)) {
-                    num++;
-                }
-            }
-            if (num == 0) {
-                finalList.add(i + 1);
-            }
-        }
-        if (finalList.size() > 0) {
-            for (int i = 0; i < finalList.size(); i++) {
-                System.out.print(finalList.get(i) + " ");
-            }
-        } else {
-            System.out.println("NO");
-        }
+    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\тимур\\Desktop\\chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        ChromeDriver driver = new ChromeDriver(options);
+
+        driver.get("https://www.sberbank.ru/ru/person/dist_services/sberid");
+        Thread.sleep(40000);
+        var button = driver.findElement(By.xpath("//*[@id=\"page-main\"]/div[1]/div/div/div/div/div/div[1]/div[2]/a"));
+        button.click();
+        Thread.sleep(5000);
+        button = driver.findElement(By.xpath("//*[@id=\"desktopContainer\"]/div[1]/div/form/div/input"));
+        Thread.sleep(5000);
+        button.click();
+        Thread.sleep(5000);
+        System.out.println("введи номер без цифры 7 тварь");
+        Scanner console = new Scanner(System.in);
+        String number = console.nextLine();
+        button.sendKeys(number);
     }
 }
